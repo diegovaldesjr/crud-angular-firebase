@@ -6,7 +6,8 @@
         {{btnAddText}}
       </button>
       
-      <table class="table mt-4">
+      <p *ngIf="employees.length === 0" class="mt-4">{{emptyText}}</p>
+      <table *ngIf="employees.length > 0" class="table mt-4">
         <thead>
           <tr>
             <th>{{nameText}}</th>
@@ -17,14 +18,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Henry</td>
-            <td>1234567</td>
-            <td>1000</td>
+          <tr *ngFor="let employee of employees">
+            <td>{{employee.name}}</td>
+            <td>{{employee.lastname}}</td>
+            <td>{{employee.doc}}</td>
+            <td>{{employee.salary | currency}}</td>
             <td>
-              <i class="fas fa-edit fa-lg me-2"></i>
-              <i class="fas fa-trash fa-lg"></i>
+              <i class="fas fa-edit fa-lg me-2" [routerLink]="['/edit/', employee.id]"></i>
+              <i class="fas fa-trash fa-lg" (click)="deleteEmployee(employee.id)"></i>
             </td>
           </tr>
         </tbody>
